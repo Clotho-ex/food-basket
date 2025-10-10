@@ -24,7 +24,7 @@ export default function Index() {
               <Text className="small-bold text-primary">Deliver to</Text>
               <TouchableOpacity className="flex-center mt-0.5 flex-row gap-x-1">
                 <Text className="paragraph-bold text-dark-100">
-                  San Diego, CA 92101
+                  Bulgaria, Sofia
                 </Text>
                 <MaterialCommunityIcons
                   name="arrow-down"
