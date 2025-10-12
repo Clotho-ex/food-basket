@@ -1,5 +1,7 @@
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
+import { signIn } from "@/lib/appwrite";
+import * as Sentry from "@sentry/react-native";
 import { Link, router } from "expo-router";
 import React, { useState } from "react";
 import { Alert, Text, View } from "react-native";
@@ -12,17 +14,21 @@ const SignIn = () => {
   });
 
   const submit = async () => {
-    if (!form.email || !form.password)
+    const { email, password } = form;
+    if (!email || !password)
       return Alert.alert("Error", "All fields are required");
 
     setIsSubmitting(true);
     try {
       // Call Appwrite SignIn Function
-
-      Alert.alert("Success", "Sign In successful");
+      await signIn({ email, password });
       router.replace("/");
     } catch {
       Alert.alert("Error", "Invalid credentials");
+      Sentry.captureEvent({
+        message: "Invalid credentials",
+        level: "error",
+      });
     } finally {
       setIsSubmitting(false);
     }

@@ -1,7 +1,9 @@
 import CartButton from "@/components/CartButton";
 import { offers } from "@/constants";
+import { signOut } from "@/lib/appwrite";
 import MaterialCommunityIcons from "@expo/vector-icons/build/MaterialCommunityIcons";
 import cn from "clsx";
+import { router } from "expo-router";
 import { Fragment } from "react";
 import {
   FlatList,
@@ -18,6 +20,7 @@ export default function Index() {
     <SafeAreaView className="flex-1 bg-white">
       <FlatList
         data={offers}
+        contentContainerClassName="pb-28 px-5"
         ListHeaderComponent={() => (
           <View className="flex-between my-5 w-full flex-row">
             <View className="flex-start">
@@ -37,6 +40,17 @@ export default function Index() {
             </View>
             <CartButton />
           </View>
+        )}
+        ListFooterComponent={() => (
+          <TouchableOpacity
+            onPress={() => {
+              signOut().then(() => {
+                router.replace("/sign-in");
+              });
+            }}
+          >
+            <Text>Sign Out</Text>
+          </TouchableOpacity>
         )}
         renderItem={({ item, index }) => {
           const isEven = index % 2 === 0;
@@ -83,7 +97,6 @@ export default function Index() {
             </View>
           );
         }}
-        contentContainerClassName="pb-28 px-5"
       />
     </SafeAreaView>
   );

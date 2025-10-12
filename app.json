@@ -39,6 +39,14 @@
             "backgroundColor": "#000000"
           }
         }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "clotho_fastfood",
+          "organization": "yusufcan-h0"
+        }
       ]
     ],
     "experiments": {
