@@ -1,5 +1,6 @@
 import { images } from "@/constants";
-import { Slot } from "expo-router";
+import useAuthStore from "@/store/auth.store";
+import { Redirect, Slot } from "expo-router";
 import { useMemo } from "react";
 import {
   Dimensions,
@@ -12,10 +13,14 @@ import {
 } from "react-native";
 
 export default function AuthLayout() {
+  const { isAuthenticated } = useAuthStore();
+
   const headerHeight = useMemo(
     () => Dimensions.get("screen").height / 2.25,
     [],
   );
+
+  if (isAuthenticated) return <Redirect href="/" />;
 
   return (
     <KeyboardAvoidingView
